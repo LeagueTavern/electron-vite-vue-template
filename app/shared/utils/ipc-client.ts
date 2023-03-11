@@ -2,13 +2,19 @@
  * @Author: Coooookies admin@mitay.net
  * @Date: 2023-01-15 18:49:10
  * @LastEditors: Coooookies admin@mitay.net
- * @LastEditTime: 2023-01-15 18:53:56
- * @FilePath: \electron-vite-vue\app\shared\utils\ipc-client.ts
+ * @LastEditTime: 2023-03-11 15:49:42
+ * @FilePath: /electron-vite-vue-template/app/shared/utils/ipc-client.ts
  * @Description:
  */
 import { ipcRenderer } from "electron";
 import type { IpcRendererEvent } from "electron";
-import type { IPCMainRequest, IPCRendererRequest } from "@shared/types";
+import type {
+  IPCMainRequest,
+  IPCRendererRequest,
+  IPCRendererInvoke,
+  IPCRendererInvokeReject,
+  IPCRendererInvokeResolve,
+} from "@shared/types";
 
 export class IPCClient {
   constructor() {}
@@ -28,5 +34,21 @@ export class IPCClient {
     data: IPCRendererRequest[T]
   ) {
     ipcRenderer.send(key, data);
+  }
+
+  invoke<T extends keyof IPCRendererInvoke>(
+    key: T,
+    args: IPCRendererInvoke[T]["args"]
+  ) {
+    // invoke
+    return new Promise<IPCRendererInvoke[T]["response"]>((resolve, reject) => {
+      ipcRenderer
+        .invoke(key, args)
+        .then((result: IPCRendererInvokeReject | IPCRendererInvokeResolve<T>) =>
+          result.type === "response"
+            ? resolve(result.response)
+            : reject(result.err)
+        );
+    });
   }
 }

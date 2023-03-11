@@ -2,15 +2,18 @@
  * @Author: Coooookies admin@mitay.net
  * @Date: 2023-01-15 04:09:22
  * @LastEditors: Coooookies admin@mitay.net
- * @LastEditTime: 2023-01-15 20:32:15
- * @FilePath: \electron-vite-vue\app\main\utils\ipc-server.ts
+ * @LastEditTime: 2023-03-11 15:45:56
+ * @FilePath: /electron-vite-vue-template/app/main/utils/ipc-server.ts
  * @Description:
  */
 import { ipcMain } from "electron";
 import type { IpcMainInvokeEvent } from "electron";
 import type {
   IPCRendererRequest,
+  IPCRendererInvoke,
   IPCMainRequest,
+  IPCRendererInvokeReject,
+  IPCRendererInvokeResolve,
   WindowEnumType,
 } from "@shared/types";
 import type { WindowContainer } from "../types";
@@ -51,5 +54,35 @@ export class IPCServer {
         instance.window.webContents.send(key, data)
       );
     }
+  }
+
+  handle<T extends keyof IPCRendererInvoke>(
+    key: T,
+    handler: (
+      event: IpcMainInvokeEvent,
+      args: IPCRendererInvoke[T]["args"],
+      resolve: (
+        response: IPCRendererInvoke[T]["response"]
+      ) => IPCRendererInvokeResolve<T>,
+      reject: (err: Error) => IPCRendererInvokeReject
+    ) =>
+      | Promise<IPCRendererInvokeReject | IPCRendererInvokeResolve<T>>
+      | IPCRendererInvokeReject
+      | IPCRendererInvokeResolve<T>
+  ) {
+    const reject = (err: Error): IPCRendererInvokeReject => ({
+      type: "error",
+      err,
+    });
+    const resolve = (
+      response: IPCRendererInvoke[T]["response"]
+    ): IPCRendererInvokeResolve<T> => ({
+      type: "response",
+      response,
+    });
+
+    ipcMain.handle(key, (event, args) =>
+      handler.call(this, event, args, resolve, reject)
+    );
   }
 }

@@ -2,11 +2,11 @@
  * @Author: Coooookies admin@mitay.net
  * @Date: 2023-01-14 17:09:02
  * @LastEditors: Coooookies admin@mitay.net
- * @LastEditTime: 2023-01-15 20:47:47
- * @FilePath: \electron-vite-vue\app\main\index.ts
+ * @LastEditTime: 2023-03-11 16:08:44
+ * @FilePath: /electron-vite-vue-template/app/main/index.ts
  * @Description:
  */
-import { app } from "electron";
+import { app, dialog } from "electron";
 import { createMainWindow } from "./create-window";
 import { IPCServer } from "./utils/ipc-server";
 import { WindowsManager } from "./windows-manager";
@@ -22,6 +22,10 @@ ipc.on("event:window", (event, { type }) => {
     `From renderer process "${windows.getKey(event.sender.id)}":`,
     type
   );
+});
+
+ipc.handle("event:open-file", async (ev, args, resolve) => {
+  return resolve(await dialog.showOpenDialog(args));
 });
 
 function createWindow() {
