@@ -1,5 +1,5 @@
 import { BrowserWindow } from "electron";
-import type { WindowContainer } from "./types";
+import type { WindowContainer } from "../types";
 import type { WindowEnumType } from "@shared/types";
 
 export class WindowsManager {
