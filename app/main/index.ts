@@ -2,7 +2,7 @@
  * @Author: Coooookies admin@mitay.net
  * @Date: 2023-03-11 20:54:17
  * @LastEditors: Coooookies admin@mitay.net
- * @LastEditTime: 2023-03-11 22:00:21
+ * @LastEditTime: 2023-03-11 22:05:09
  * @FilePath: \electron-vite-vue-template\app\main\index.ts
  * @Description:
  */
@@ -16,6 +16,8 @@ import { WindowsManager } from "./utils/windows-manager";
 const windowsManager = new WindowsManager();
 const ipcMain = new IPCServer(windowsManager.getMap());
 
+// ========================================================
+// 窗口事件（渲染进程手动触发）
 ipcMain.on("event:window", (event, { type }) => {
   console.log(
     `From renderer process "${windowsManager.getKey(event.sender.id)}":`,
@@ -23,9 +25,11 @@ ipcMain.on("event:window", (event, { type }) => {
   );
 });
 
+// 打开文件
 ipcMain.handle("event:open-file", async (ev, args, resolve) => {
   return resolve(await dialog.showOpenDialog(args));
 });
+// ========================================================
 
 function createWindow() {
   windowsManager.createWindow("main", createMainWindow());
