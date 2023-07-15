@@ -1,11 +1,3 @@
-/*
- * @Author: Coooookies admin@mitay.net
- * @Date: 2023-01-15 18:49:10
- * @LastEditors: Coooookies admin@mitay.net
- * @LastEditTime: 2023-03-11 15:49:42
- * @FilePath: /electron-vite-vue-template/app/shared/utils/ipc-client.ts
- * @Description:
- */
 import { ipcRenderer } from "electron";
 import type { IpcRendererEvent } from "electron";
 import type {

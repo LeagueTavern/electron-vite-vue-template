@@ -1,11 +1,3 @@
-/*
- * @Author: Coooookies admin@mitay.net
- * @Date: 2023-01-15 04:09:22
- * @LastEditors: Coooookies admin@mitay.net
- * @LastEditTime: 2023-03-11 21:57:19
- * @FilePath: \electron-vite-vue-template\app\main\utils\ipc-server.ts
- * @Description:
- */
 import { ipcMain } from "electron";
 import type { IpcMainInvokeEvent } from "electron";
 import type {

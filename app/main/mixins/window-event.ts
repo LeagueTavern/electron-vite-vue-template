@@ -1,11 +1,3 @@
-/*
- * @Author: Coooookies admin@mitay.net
- * @Date: 2023-01-15 19:45:49
- * @LastEditors: Coooookies admin@mitay.net
- * @LastEditTime: 2023-01-15 20:04:19
- * @FilePath: \electron-vite-vue\app\main\mixins\window-event.ts
- * @Description:
- */
 import { BrowserWindow } from "electron";
 import { WebContentIPC } from "./webcontent-ipc";
 

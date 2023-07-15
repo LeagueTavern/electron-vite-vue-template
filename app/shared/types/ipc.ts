@@ -1,12 +1,3 @@
-/*
- * @Author: Coooookies admin@mitay.net
- * @Date: 2023-01-15 03:59:55
- * @LastEditors: Coooookies admin@mitay.net
- * @LastEditTime: 2023-03-11 16:08:22
- * @FilePath: /electron-vite-vue-template/app/shared/types/ipc.ts
- * @Description:
- */
-
 import type { OpenDialogReturnValue, OpenDialogOptions } from "electron";
 
 // 主进程 => 渲染进程

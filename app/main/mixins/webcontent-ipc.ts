@@ -1,11 +1,3 @@
-/*
- * @Author: Coooookies admin@mitay.net
- * @Date: 2023-01-15 19:08:12
- * @LastEditors: Coooookies admin@mitay.net
- * @LastEditTime: 2023-01-15 20:14:39
- * @FilePath: \electron-vite-vue\app\main\mixins\webcontent-ipc.ts
- * @Description:
- */
 import { BrowserWindow } from "electron";
 import type { IPCRendererRequest, IPCMainRequest } from "@shared/types";
 
