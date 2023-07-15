@@ -1,13 +1,5 @@
-/*
- * @Author: Coooookies admin@mitay.net
- * @Date: 2023-03-11 20:54:17
- * @LastEditors: Coooookies admin@mitay.net
- * @LastEditTime: 2023-03-11 22:05:09
- * @FilePath: \electron-vite-vue-template\app\main\index.ts
- * @Description:
- */
 import { app, dialog } from "electron";
-import { createMainWindow } from "./create-window";
+import { createIndexWindow, createSecordWindow } from "./create-window";
 import { IPCServer } from "./utils/ipc-server";
 import { WindowsManager } from "./utils/windows-manager";
 
@@ -32,7 +24,8 @@ ipcMain.handle("event:open-file", async (ev, args, resolve) => {
 // ========================================================
 
 function createWindow() {
-  windowsManager.createWindow("main", createMainWindow());
+  windowsManager.createWindow("index", createIndexWindow());
+  windowsManager.createWindow("secord", createSecordWindow());
 }
 
 // 高版本Windows任务栏中正确显示图标
@@ -46,7 +39,7 @@ if (!app.requestSingleInstanceLock()) {
 }
 
 app.on("second-instance", () => {
-  const instance = windowsManager.getInstance("main");
+  const instance = windowsManager.getInstance("index");
 
   if (instance) {
     if (instance.window.isMinimized()) instance.window.restore();
@@ -61,11 +54,18 @@ app.on("window-all-closed", () => {
 
 app.whenReady().then(createWindow);
 app.on("activate", () => {
-  const instance = windowsManager.getInstance("main");
-  if (instance) {
-    instance.window.show();
-    instance.window.focus();
+  const indexWindow = windowsManager.getInstance("index");
+  const secordWindow = windowsManager.getInstance("secord");
+
+  if (indexWindow) {
+    indexWindow.window.show();
+    indexWindow.window.focus();
   } else {
     createWindow();
+  }
+
+  if (secordWindow) {
+    secordWindow.window.show();
+    secordWindow.window.focus();
   }
 });

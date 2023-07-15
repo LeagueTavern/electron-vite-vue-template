@@ -1,11 +1,3 @@
-/*
- * @Author: Coooookies admin@mitay.net
- * @Date: 2023-01-14 17:09:02
- * @LastEditors: Coooookies admin@mitay.net
- * @LastEditTime: 2023-01-15 20:58:32
- * @FilePath: \electron-vite-vue\vite.config.ts
- * @Description:
- */
 import { rmSync } from "node:fs";
 import { join } from "node:path";
 import { defineConfig } from "vite";
@@ -86,6 +78,12 @@ export default defineConfig(({ command }) => {
     },
     build: {
       outDir: "target/renderer",
+      rollupOptions: {
+        input: {
+          "index-page": "index.html",
+          "secord-page": "secord.html",
+        },
+      },
     },
     server: process.env.VSCODE_DEBUG
       ? (() => {

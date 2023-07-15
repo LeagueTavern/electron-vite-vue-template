@@ -1,11 +1,3 @@
-<!--
- * @Author: Coooookies admin@mitay.net
- * @Date: 2023-01-14 17:09:02
- * @LastEditors: Coooookies admin@mitay.net
- * @LastEditTime: 2023-03-11 16:10:42
- * @FilePath: /electron-vite-vue-template/app/renderer/src/App.vue
- * @Description: 
--->
 <script setup lang="ts">
 import { IPCClient } from "@shared/utils/ipc-client";
 import { ref } from "vue";
@@ -38,6 +30,7 @@ const selectFile = () => {
 </script>
 
 <template>
+  <p>Index Window</p>
   <button @click="maximize">Maximize</button>
   <button @click="unmaximize">Unmaximize</button>
   <button @click="selectFile">Select file</button>
