@@ -22,14 +22,14 @@ export class WebContentIPC {
     )
   }
 
-  on<Keys extends keyof IPCRendererRequest>(
-    key: Keys,
-    callback: (args: IPCRendererRequest[Keys]) => void
+  on<K extends keyof IPCRendererRequest>(
+    key: K,
+    callback: (args: IPCRendererRequest[K]) => void
   ) {
     this.fn.add({
       key,
-      callback: callback,
-    })
+      callback,
+    } as IPCRendererRequestMap)
   }
 
   send<T extends keyof IPCMainRequest>(key: T, data: IPCMainRequest[T]) {
