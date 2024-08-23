@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
+    "strict": true,
     "baseUrl": "./",
     "composite": true,
     "module": "ESNext",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
     "paths": {
       "@main/*": ["app/main/*"],
       "@shared/*": ["app/shared/*"]

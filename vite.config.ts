@@ -52,6 +52,7 @@ export default defineConfig(({ command }) => {
           },
           vite: {
             build: {
+              target: "modules",
               sourcemap,
               minify: isBuild,
               outDir: "target/preload",
@@ -59,6 +60,13 @@ export default defineConfig(({ command }) => {
                 external: Object.keys(
                   "dependencies" in pkg ? pkg.dependencies : {}
                 ),
+                output: {
+                  format: "cjs",
+                  inlineDynamicImports: true,
+                  entryFileNames: `[name].mjs`,
+                  chunkFileNames: `[name].mjs`,
+                  assetFileNames: "[name].[ext]",
+                },
               },
             },
           },
